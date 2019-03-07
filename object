@@ -1,1 +1,8 @@
-object
+//查看oracle下哪个用户操作表造成死锁的进程
+select t2.username,t2.sid,t2.serial#,t2.logon_time from v$locked_object t1,v$session t2 where t1.session_id=t2.sid order by t2.logon_time;
+
+//如果权限不足，可以给该用户赋予权限
+grant alter system to GHS;
+
+//杀死该进程恢复正常
+alter system kill session '1291,6079';
